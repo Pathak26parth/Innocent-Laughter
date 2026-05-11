@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Prashant Gandhi, former IRS Assistant Commissioner, now a stress reliever and laughter coach. Book engaging stress-relief and laughter programs for organizations, universities, and colleges.">
+    <title>Prashant Gandhi | Stress Reliever & Laughter Coach</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar container">
+            <a class="brand" href="#home">Prashant Gandhi</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#glimpses">Glimpses</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#book">Book</a></li>
+                <li><a href="#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container" id="home">
+            <p class="kicker">Former IRS Assistant Commissioner</p>
+            <h1>Transforming stress into smiles through powerful laughter experiences.</h1>
+            <p class="hero-text">
+                After retirement, <strong>Prashant Gandhi</strong> began a new mission: helping people and teams feel lighter,
+                happier, and more connected through practical stress-relief and laughter coaching.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#book">Book a Program</a>
+                <a class="btn btn-secondary" href="#connect">Connect Now</a>
+            </div>
+            <div class="highlights">
+                <span>Corporate Programs</span>
+                <span>Universities & Colleges</span>
+                <span>Seminars & Live Shows</span>
+            </div>
+        </section>
+
+        <section class="section container" id="programs">
+            <h2>Signature Programs</h2>
+            <div class="cards">
+                <article class="card">
+                    <h3>Laughter Program</h3>
+                    <p>Interactive sessions with laughter techniques, mood reset activities, and positive energy practices.</p>
+                </article>
+                <article class="card">
+                    <h3>Stress Reliever Program</h3>
+                    <p>Simple methods to reduce stress, improve focus, and build emotional resilience for daily life.</p>
+                </article>
+                <article class="card">
+                    <h3>Seminars & Special Shows</h3>
+                    <p>Custom sessions for organizations, universities, and colleges with practical, high-impact takeaways.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section container" id="glimpses">
+            <h2>Program Glimpses</h2>
+            <div class="media-grid">
+                <article class="media-card">
+                    <h3>Stress Relieving Live Session</h3>
+                    <video controls preload="metadata">
+                        <source src="Stress Reliving live session.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </article>
+                <article class="media-card">
+                    <h3>Seminar Session</h3>
+                    <video controls preload="metadata">
+                        <source src="seminar.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </article>
+            </div>
+        </section>
+
+        <section class="section container" id="about">
+            <h2>About Prashant Gandhi</h2>
+            <div class="about-grid">
+                <img class="about-poster" src="infoPoster.jpg" alt="Prashant Gandhi profile poster">
+                <div>
+                    <p>
+                        With deep administrative leadership experience and a people-first mindset, Prashant Gandhi now dedicates
+                        his journey to wellness coaching. His sessions blend empathy, humor, and practical techniques that leave
+                        audiences refreshed and inspired.
+                    </p>
+                    <p class="about-subtext">Certified expertise, practical techniques, and joyful transformation for every audience.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section container quote-section">
+            <h2>Inspiration Through Laughter</h2>
+            <img class="quote-image" src="quotes.jpg" alt="Inspirational laughter quote">
+        </section>
+
+        <section class="section container book" id="book">
+            <h2>Book for a Show or Seminar</h2>
+            <p>Available for organizations, universities, colleges, events, and wellness initiatives.</p>
+            <div class="booking-grid">
+                <div class="booking-panel">
+                    <h3>Direct Booking</h3>
+                    <p>Open the booking form to request a special show or seminar slot.</p>
+                    <button class="btn btn-primary" id="openBookingDialogBtn" type="button">Open Booking Form</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="dialog-backdrop" id="bookingDialog" hidden>
+            <div class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="bookingDialogTitle">
+                <div class="dialog-head">
+                    <h3 id="bookingDialogTitle">Special Show / Seminar Booking</h3>
+                    <button class="dialog-close" id="closeBookingDialogBtn" type="button" data-close-booking="true" aria-label="Close booking form">×</button>
+                </div>
+                <form id="bookingForm" class="booking-form">
+                    <p class="booking-progress" id="bookingProgress">Step 1 of 2: Show Details</p>
+
+                    <div class="booking-step" id="bookingStepOne">
+                        <label for="customerName">Your Name</label>
+                        <input id="customerName" name="customerName" type="text" required>
+
+                        <label for="organizationName">Organization / University / College Name</label>
+                        <input id="organizationName" name="organizationName" type="text" required>
+
+                        <label for="venue">Venue</label>
+                        <input id="venue" name="venue" type="text" required>
+
+                        <label for="availableDate">Available Date</label>
+                        <select id="availableDate" name="availableDate" required>
+                            <option value="">Select a date</option>
+                            <option value="15 May 2026">15 May 2026</option>
+                            <option value="18 May 2026">18 May 2026</option>
+                            <option value="22 May 2026">22 May 2026</option>
+                            <option value="25 May 2026">25 May 2026</option>
+                            <option value="29 May 2026">29 May 2026</option>
+                        </select>
+
+                        <label for="availableTime">Available Time</label>
+                        <select id="availableTime" name="availableTime" required>
+                            <option value="">Select a time</option>
+                            <option value="10:00 AM - 11:30 AM">10:00 AM - 11:30 AM</option>
+                            <option value="12:00 PM - 1:30 PM">12:00 PM - 1:30 PM</option>
+                            <option value="3:00 PM - 4:30 PM">3:00 PM - 4:30 PM</option>
+                            <option value="5:00 PM - 6:30 PM">5:00 PM - 6:30 PM</option>
+                        </select>
+
+                        <div class="dialog-actions">
+                            <button class="btn btn-secondary" id="cancelBookingDialogBtn" type="button" data-close-booking="true">Cancel</button>
+                            <button class="btn btn-primary" id="bookingNextBtn" type="button">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-step" id="bookingStepTwo" hidden>
+                        <h4 class="payment-title">Choose Payment Method</h4>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="UPI / Google Pay" required>
+                                <span>UPI / Google Pay</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="Bank Transfer" required>
+                                <span>Bank Transfer</span>
+                            </label>
+                        </div>
+
+                        <div class="payment-panel">
+                            <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=prashant.gandhi@upi&pn=Prashant%20Gandhi&cu=INR" alt="Google Pay QR code for Prashant Gandhi payment">
+                            <p class="upi-line"><strong>UPI ID:</strong> <span id="upiIdDialog">prashant.gandhi@upi</span></p>
+                            <button class="btn btn-secondary" id="copyUpiDialogBtn" type="button">Copy UPI ID</button>
+                            <a class="btn btn-secondary" href="upi://pay?pa=prashant.gandhi@upi&pn=Prashant%20Gandhi&cu=INR">Pay via Google Pay</a>
+                        </div>
+
+                        <div class="dialog-actions">
+                            <button class="btn btn-secondary" id="bookingBackBtn" type="button">Back</button>
+                            <button class="btn btn-primary" type="submit">Submit Booking</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="booking-message" id="bookingMessage" aria-live="polite"></p>
+            </div>
+        </div>
+
+        <section class="section container" id="connect">
+            <h2>Connect & Reviews</h2>
+            <div class="connect-links">
+                <div class="social-dropdown" id="instagramDropdown">
+                    <button class="social-trigger social-icon-only" id="instagramToggleBtn" type="button" aria-label="Instagram accounts" aria-expanded="false" aria-controls="instagramAccountsMenu">
+                        <img class="social-icon" src="instaLogojpg.jpg" alt="Instagram logo">
+                    </button>
+                    <div class="social-menu" id="instagramAccountsMenu" hidden>
+                        <a href="https://www.instagram.com/prashant_stress_reliever_coach?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">Prashant Gandhi</a>
+                        <a href="https://www.instagram.com/innocent.laughter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">Innocent Laughter</a>
+                    </div>
+                </div>
+                <a class="social-link social-icon-only" href="https://www.facebook.com/share/1DjehDNYhM/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <img class="social-icon" src="facebookLogo.png" alt="Facebook logo">
+                </a>
+                <button class="social-link social-icon-only" id="openReviewDialogBtn" type="button" aria-label="Open review form">
+                    <img class="social-icon" src="review.png" alt="Review logo">
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <div class="dialog-backdrop" id="reviewDialog" hidden>
+        <div class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="reviewDialogTitle">
+            <div class="dialog-head">
+                <h3 id="reviewDialogTitle">Share Your Review</h3>
+                <button class="dialog-close" id="closeReviewDialogBtn" type="button" data-close-review="true" aria-label="Close review form">×</button>
+            </div>
+            <form id="reviewForm" class="review-form">
+                <label for="reviewName">Your Name</label>
+                <input id="reviewName" name="reviewName" type="text" required>
+
+                <label for="reviewOrganizationName">Organization / University / College Name</label>
+                <input id="reviewOrganizationName" name="reviewOrganizationName" type="text">
+
+                <label for="reviewRating">Rating</label>
+                <select id="reviewRating" name="reviewRating" required>
+                    <option value="">Select rating</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="3">3 - Good</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="1">1 - Poor</option>
+                </select>
+
+                <label for="reviewMessageInput">Your Review</label>
+                <textarea id="reviewMessageInput" name="reviewMessageInput" rows="4" required></textarea>
+
+                <div class="dialog-actions">
+                    <button class="btn btn-secondary" id="cancelReviewDialogBtn" type="button" data-close-review="true">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Submit Review</button>
+                </div>
+            </form>
+            <p class="review-message" id="reviewMessage" aria-live="polite"></p>
+        </div>
+    </div>
+
+    <!-- Reviews Carousel Section -->
+    <section class="reviews-carousel-section">
+        <div class="container">
+            <h2>What People Say</h2>
+            <div class="reviews-carousel-wrapper">
+                <button class="carousel-btn carousel-prev" id="reviewsCarouselPrev" aria-label="Previous reviews" type="button">
+                    ‹
+                </button>
+                <div class="reviews-carousel" id="reviewsCarousel">
+                    <div id="reviewsCarouselContent" class="reviews-carousel-content">
+                        <!-- Reviews will be loaded here by JavaScript -->
+                        <div class="review-placeholder">Loading reviews...</div>
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-next" id="reviewsCarouselNext" aria-label="Next reviews" type="button">
+                    ›
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="year"></span> Prashant Gandhi. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
