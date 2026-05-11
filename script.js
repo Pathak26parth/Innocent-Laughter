@@ -32,8 +32,13 @@ const reviewMessageInput = document.getElementById("reviewMessageInput");
 const instagramDropdown = document.getElementById("instagramDropdown");
 const instagramToggleBtn = document.getElementById("instagramToggleBtn");
 const instagramAccountsMenu = document.getElementById("instagramAccountsMenu");
+const glimpseCarousel = document.getElementById("glimpseCarousel");
+const glimpseCarouselContent = document.getElementById("glimpseCarouselContent");
+const glimpseCarouselPrev = document.getElementById("glimpseCarouselPrev");
+const glimpseCarouselNext = document.getElementById("glimpseCarouselNext");
 const BOOKING_API_ENDPOINT = "/api/bookings";
 const REVIEW_API_ENDPOINT = "/api/reviews";
+const GLIMPSE_API_ENDPOINT = "/api/glimpses";
 
 const submitBookingToBackend = async (payload) => {
     const response = await fetch(BOOKING_API_ENDPOINT, {
@@ -197,6 +202,161 @@ const closeInstagramMenu = () => {
     instagramAccountsMenu.hidden = true;
     instagramToggleBtn.setAttribute("aria-expanded", "false");
 };
+
+// Glimpse Carousel
+let glimpseAutoScrollInterval = null;
+
+const startGlimpseAutoScroll = () => {
+    if (glimpseAutoScrollInterval) {
+        clearInterval(glimpseAutoScrollInterval);
+    }
+
+    glimpseAutoScrollInterval = setInterval(() => {
+        if (!glimpseCarousel) {
+            return;
+        }
+
+        const isAtEnd = glimpseCarousel.scrollLeft + glimpseCarousel.clientWidth >= glimpseCarousel.scrollWidth - 10;
+
+        if (isAtEnd) {
+            glimpseCarousel.scrollTo({ left: 0, behavior: "smooth" });
+            return;
+        }
+
+        glimpseCarousel.scrollBy({ left: 380, behavior: "smooth" });
+    }, 4500);
+};
+
+const stopGlimpseAutoScroll = () => {
+    if (glimpseAutoScrollInterval) {
+        clearInterval(glimpseAutoScrollInterval);
+        glimpseAutoScrollInterval = null;
+    }
+};
+
+const updateGlimpseCarouselButtons = () => {
+    if (!glimpseCarousel) return;
+
+    const isAtStart = glimpseCarousel.scrollLeft <= 0;
+    const isAtEnd = glimpseCarousel.scrollLeft + glimpseCarousel.clientWidth >= glimpseCarousel.scrollWidth - 10;
+
+    if (glimpseCarouselPrev) {
+        glimpseCarouselPrev.disabled = isAtStart;
+    }
+
+    if (glimpseCarouselNext) {
+        glimpseCarouselNext.disabled = isAtEnd;
+    }
+};
+
+const renderGlimpseMedia = (glimpse) => {
+    const mediaUrl = glimpse.mediaUrl || glimpse.url || "";
+    const thumbnailUrl = glimpse.thumbnailUrl || "";
+
+    if (glimpse.type === "video") {
+        return `
+            <div class="glimpse-media">
+                <video controls preload="metadata" ${thumbnailUrl ? `poster="${thumbnailUrl}"` : ""}>
+                    <source src="${mediaUrl}" type="${escapeHtml(glimpse.media?.contentType || "video/mp4")}">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="glimpse-media">
+            <img src="${mediaUrl}" alt="${escapeHtml(glimpse.title)}">
+        </div>
+    `;
+};
+
+const loadGlimpseCarousel = async () => {
+    try {
+        const response = await fetch(`${GLIMPSE_API_ENDPOINT}?limit=100`);
+
+        if (!response.ok) {
+            throw new Error(`Glimpse backend request failed with status ${response.status}.`);
+        }
+
+        const glimpses = await response.json();
+
+        if (!Array.isArray(glimpses) || glimpses.length === 0) {
+            if (glimpseCarouselContent) {
+                glimpseCarouselContent.innerHTML = '<div class="media-placeholder">No glimpses available yet.</div>';
+            }
+            stopGlimpseAutoScroll();
+            return;
+        }
+
+        const sortedGlimpses = [...glimpses].sort((left, right) => new Date(right.createdAt) - new Date(left.createdAt));
+
+        if (glimpseCarouselContent) {
+            glimpseCarouselContent.innerHTML = sortedGlimpses
+                .map((glimpse) => `
+                    <article class="glimpse-card">
+                        ${renderGlimpseMedia(glimpse)}
+                        <div class="glimpse-body">
+                            <div class="glimpse-meta">
+                                <span class="glimpse-tag">${escapeHtml(glimpse.category || "showcase")}</span>
+                                <span class="glimpse-date">${formatDate(glimpse.createdAt)}</span>
+                            </div>
+                            <h3 class="glimpse-title">${escapeHtml(glimpse.title)}</h3>
+                            <p class="glimpse-description">${escapeHtml(glimpse.description || "")}</p>
+                        </div>
+                    </article>
+                `)
+                .join("");
+        }
+
+        updateGlimpseCarouselButtons();
+        startGlimpseAutoScroll();
+    } catch (error) {
+        console.error("Error loading glimpse carousel:", error);
+        if (glimpseCarouselContent) {
+            glimpseCarouselContent.innerHTML = '<div class="media-placeholder">Unable to load glimpses. Please try again later.</div>';
+        }
+        stopGlimpseAutoScroll();
+    }
+};
+
+if (glimpseCarouselPrev) {
+    glimpseCarouselPrev.addEventListener("click", () => {
+        if (!glimpseCarousel) return;
+
+        stopGlimpseAutoScroll();
+        glimpseCarousel.scrollBy({ left: -380, behavior: "smooth" });
+        setTimeout(updateGlimpseCarouselButtons, 300);
+        setTimeout(startGlimpseAutoScroll, 300);
+    });
+}
+
+if (glimpseCarouselNext) {
+    glimpseCarouselNext.addEventListener("click", () => {
+        if (!glimpseCarousel) return;
+
+        stopGlimpseAutoScroll();
+        glimpseCarousel.scrollBy({ left: 380, behavior: "smooth" });
+        setTimeout(updateGlimpseCarouselButtons, 300);
+        setTimeout(startGlimpseAutoScroll, 300);
+    });
+}
+
+if (glimpseCarousel) {
+    glimpseCarousel.addEventListener("scroll", () => {
+        updateGlimpseCarouselButtons();
+    });
+
+    glimpseCarousel.addEventListener("mouseenter", stopGlimpseAutoScroll);
+    glimpseCarousel.addEventListener("mouseleave", startGlimpseAutoScroll);
+}
+
+const glimpseCarouselShell = document.querySelector(".glimpse-carousel-shell");
+
+if (glimpseCarouselShell) {
+    glimpseCarouselShell.addEventListener("mouseenter", stopGlimpseAutoScroll);
+    glimpseCarouselShell.addEventListener("mouseleave", startGlimpseAutoScroll);
+}
 
 if (openBookingDialogBtn) {
     openBookingDialogBtn.addEventListener("click", openBookingDialog);
@@ -533,9 +693,20 @@ if (reviewsCarousel) {
     reviewsCarousel.addEventListener("scroll", () => {
         updateCarouselButtons();
     });
+
+    reviewsCarousel.addEventListener("mouseenter", stopAutoScroll);
+    reviewsCarousel.addEventListener("mouseleave", startAutoScroll);
+}
+
+const reviewsCarouselWrapper = document.querySelector(".reviews-carousel-wrapper");
+
+if (reviewsCarouselWrapper) {
+    reviewsCarouselWrapper.addEventListener("mouseenter", stopAutoScroll);
+    reviewsCarouselWrapper.addEventListener("mouseleave", startAutoScroll);
 }
 
 // Load reviews carousel on page load
 window.addEventListener("load", () => {
+    loadGlimpseCarousel();
     loadReviewsCarousel();
 });

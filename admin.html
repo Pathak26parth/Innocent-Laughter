@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Upload glimpse and promotion material for Prashant Gandhi website.">
+    <title>Media Upload Studio | Prashant Gandhi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+    <header class="site-header">
+        <nav class="navbar container">
+            <a class="brand" href="/">Prashant Gandhi</a>
+            <a class="btn btn-secondary" href="/">Back to Website</a>
+        </nav>
+    </header>
+
+    <main class="container admin-shell">
+        <section class="section admin-hero">
+            <h1>Media Upload Studio</h1>
+            <p>Upload glimpses, posters, and promotional videos. Files are stored in MongoDB as binary media and shown in the homepage sliding window.</p>
+        </section>
+
+        <section class="admin-layout">
+            <form class="admin-form" id="mediaUploadForm">
+                <div class="admin-form-head">
+                    <div>
+                        <h2 style="margin-bottom: 0.25rem;">Upload Media</h2>
+                        <p class="admin-mode" id="mediaFormMode">Create a new glimpse or promo item.</p>
+                    </div>
+                    <button class="btn btn-secondary" id="cancelEditBtn" type="button" hidden>Cancel Edit</button>
+                </div>
+
+                <label for="mediaTitle">Title</label>
+                <input id="mediaTitle" name="mediaTitle" type="text" required>
+
+                <div class="inline-fields">
+                    <div>
+                        <label for="mediaType">Type</label>
+                        <select id="mediaType" name="mediaType" required>
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="mediaCategory">Category</label>
+                        <input id="mediaCategory" name="mediaCategory" type="text" value="showcase" placeholder="showcase">
+                    </div>
+                </div>
+
+                <label for="mediaFile">Media File</label>
+                <input id="mediaFile" name="mediaFile" type="file" accept="image/*,video/*">
+
+                <label for="thumbnailFile">Thumbnail File <span style="font-weight: 400; color: var(--muted);">(optional)</span></label>
+                <input id="thumbnailFile" name="thumbnailFile" type="file" accept="image/*">
+
+                <label for="mediaDescription">Description</label>
+                <textarea id="mediaDescription" name="mediaDescription" rows="4" placeholder="Short description for the homepage card"></textarea>
+
+                <div class="inline-fields">
+                    <div>
+                        <label for="mediaEventDate">Event Date</label>
+                        <input id="mediaEventDate" name="mediaEventDate" type="date">
+                    </div>
+                    <div>
+                        <label for="mediaDisplayOrder">Display Order</label>
+                        <input id="mediaDisplayOrder" name="mediaDisplayOrder" type="number" value="0">
+                    </div>
+                </div>
+
+                <label for="mediaTags">Tags</label>
+                <input id="mediaTags" name="mediaTags" type="text" placeholder="homepage, promo, seminar">
+
+                <label class="admin-toggle">
+                    <input id="mediaFeatured" name="mediaFeatured" type="checkbox">
+                    Mark as featured
+                </label>
+
+                <label class="admin-toggle">
+                    <input id="mediaPublished" name="mediaPublished" type="checkbox" checked>
+                    Publish on homepage
+                </label>
+
+                <div class="admin-form-actions">
+                    <button class="btn btn-primary" id="submitMediaBtn" type="submit">Upload to Database</button>
+                </div>
+                <p class="admin-status" id="mediaUploadStatus" aria-live="polite"></p>
+            </form>
+
+            <section class="admin-gallery">
+                <div class="admin-gallery-head">
+                    <h2 style="margin: 0;">Stored Media</h2>
+                    <button class="btn btn-secondary" id="refreshMediaListBtn" type="button">Refresh</button>
+                </div>
+                <div class="admin-media-grid" id="adminMediaGrid">
+                    <div class="media-placeholder">Loading stored media...</div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>
